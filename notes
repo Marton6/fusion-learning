@@ -1,1 +1,52 @@
 On audit dataset it achieved a performance of 0.974359 using oversampling.
+
+10 clients, data: 80%training 20%test 1000 generated samples per client
+Audit Dataset:
+use_oversampling = True
+
+training set: loss: 0.0212 - accuracy: 0.9932
+test set: Final accuracy=0.98717946
+
+Found best_dist=genextreme for feature=PARA_A
+Found best_dist=logistic for feature=SCORE_A
+Found best_dist=genextreme for feature=PARA_B
+Found best_dist=genextreme for feature=SCORE_B
+Found best_dist=pareto for feature=TOTAL
+Found best_dist=logistic for feature=numbers
+Found best_dist=logistic for feature=Marks
+Found best_dist=norm for feature=Money_Value
+Found best_dist=genextreme for feature=MONEY_Marks
+Found best_dist=logistic for feature=District
+Found best_dist=norm for feature=Loss
+Found best_dist=cauchy for feature=LOSS_SCORE
+Found best_dist=logistic for feature=History
+Found best_dist=logistic for feature=History_score
+Found best_dist=logistic for feature=Score
+The above are slightly different for each client
+
+Breast Cancer Dataset:
+use_oversampling = True
+
+training set: loss: 0.1020 - accuracy: 0.9591
+test set: Final accuracy=0.94160587
+
+for each client:
+              precision    recall  f1-score   support
+
+         0.0       1.00      1.00      1.00        34
+         1.0       1.00      1.00      1.00        20
+
+    accuracy                           1.00        54
+   macro avg       1.00      1.00      1.00        54
+weighted avg       1.00      1.00      1.00        54
+
+Found best_dist=genextreme for feature=Clump Thickness
+Found best_dist=norm for feature=Uniformity of Cell Size
+Found best_dist=logistic for feature=Uniformity of Cell Shape
+Found best_dist=logistic for feature=Marginal Adhesion
+Found best_dist=genextreme for feature=Single Epithelial Cell Size
+Found best_dist=genextreme for feature=Bare Nuclei
+Found best_dist=genextreme for feature=Bland Chromatin
+Found best_dist=logistic for feature=Normal Nucleoli
+Found best_dist=genextreme for feature=Mitoses
+the above are slightly different for each client

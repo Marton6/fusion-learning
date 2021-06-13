@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 
 epochs = 100
 features = 15
-use_oversampling = False
-dataset = 'audit'
+use_oversampling = True
+dataset = 'breast_cancer'
 
 raw_dataset = None
 
@@ -20,6 +20,17 @@ if dataset == 'credit_card':
 elif dataset == 'audit':
     features = 15
     raw_dataset = pandas.read_csv('audit.csv', header=None).to_numpy()[:,1:] # also cut out LOCATION_ID
+elif dataset == 'breast_cancer':
+    features = 9
+    raw_dataset = pandas.read_csv('breast_cancer.csv', header=None).to_numpy()
+    keep = []
+    for row in raw_dataset:
+        if '?' in row:
+            keep.append(False)
+        else:
+            keep.append(True)
+    raw_dataset = raw_dataset[keep]
+    raw_dataset[1:, -1] = raw_dataset[1:, -1].astype(np.float64)/2-1
 
 column_labels = raw_dataset[0, 1:-1]
 dataset = raw_dataset[1:, 1:].astype(np.float64)
