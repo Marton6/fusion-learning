@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 epochs = 100
 features = 15
+use_oversampling = False
 dataset = 'audit'
 
 raw_dataset = None
@@ -88,12 +89,10 @@ def client(data):
             loss=tf.keras.losses.SparseCategoricalCrossentropy(),
             metrics=['accuracy'])
     x, y = data[:, :-1], data[:, -1]
-    #print(Counter(y))
-    oversample = RandomOverSampler(sampling_strategy='minority')
-    x_o, y_o = oversample.fit_resample(x, y)
-    #print(Counter(y_o))
-#    train_dataset = tf.data.Dataset.from_tensor_slices((data[:, :-1], data[:, -1]))
-#    train_dataset = train_dataset.batch(32, drop_remainder=True)
+    x_o, y_o = x, y
+    if use_oversampling:
+        oversample = RandomOverSampler(sampling_strategy='minority')
+        x_o, y_o = oversample.fit_resample(x, y)
     model.fit(x_o, y_o, batch_size=32, epochs=epochs, verbose=0)
     y_pred = model.predict(x, batch_size=32, verbose=0)
     y_pred_bool = np.argmax(y_pred, axis=1)
