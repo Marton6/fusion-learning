@@ -8,8 +8,10 @@ from scipy import stats
 import matplotlib.pyplot as plt
 
 epochs = 100
+features = 15
 
-raw_dataset = pandas.read_excel('dataset.xls', header=0).to_numpy()
+#raw_dataset = pandas.read_excel('dataset.xls', header=0).to_numpy()
+raw_dataset = pandas.read_csv('trial.csv', header=None).to_numpy()[:,1:]
 column_labels = raw_dataset[0, 1:-1]
 dataset = raw_dataset[1:, 1:].astype(np.float64)
 np.random.shuffle(dataset)
@@ -69,7 +71,7 @@ def client(data):
         })
 
     model = tf.keras.Sequential([
-        tf.keras.Input(shape=(23,)),
+        tf.keras.Input(shape=(features,)),
         tf.keras.layers.Dense(100, activation='relu'),
         tf.keras.layers.Dense(100, activation='relu'),
         tf.keras.layers.Dense(2, activation='softmax'),
@@ -115,12 +117,12 @@ for i in range(10):
     #plt.show(block=True)
 
 # Server generates data and trains model
-generated_samples = np.zeros((10000, 23))
+generated_samples = np.zeros((10000, features))
 generated_sample_labels = np.zeros(10000)
 
 for i in range(10):
     distributions = distribution_lists[i]
-    samples = np.zeros((1000, 23))
+    samples = np.zeros((1000, features))
     for dist_index, dist_params in enumerate(distributions):
         dist = getattr(stats, dist_params['name'])(*dist_params['params'])
         samples[:,dist_index] = dist.rvs(1000)
@@ -133,7 +135,7 @@ for i in range(10):
 
 
 model = tf.keras.Sequential([
-    tf.keras.Input(shape=(23,)),
+    tf.keras.Input(shape=(features,)),
     tf.keras.layers.Dense(100, activation='relu'),
     tf.keras.layers.Dense(100, activation='relu'),
     tf.keras.layers.Dense(2, activation='softmax'),
