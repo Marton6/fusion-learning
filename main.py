@@ -9,9 +9,17 @@ import matplotlib.pyplot as plt
 
 epochs = 100
 features = 15
+dataset = 'audit'
 
-#raw_dataset = pandas.read_excel('dataset.xls', header=0).to_numpy()
-raw_dataset = pandas.read_csv('trial.csv', header=None).to_numpy()[:,1:]
+raw_dataset = None
+
+if dataset == 'credit_card':
+    features = 23
+    raw_dataset = pandas.read_excel('credit_card.xls', header=0).to_numpy()
+elif dataset == 'audit':
+    features = 15
+    raw_dataset = pandas.read_csv('audit.csv', header=None).to_numpy()[:,1:] # also cut out LOCATION_ID
+
 column_labels = raw_dataset[0, 1:-1]
 dataset = raw_dataset[1:, 1:].astype(np.float64)
 np.random.shuffle(dataset)
