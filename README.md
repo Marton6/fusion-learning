@@ -24,3 +24,5 @@ python main.py
 ```
 
 The output of the experiment is the accuracy of the trained model.
+
+[1] Anirudh Kasturi, Anish Reddy Ellore, and Chittaran-jan  Hota.  “Fusion  Learning:  A  One  Shot  FederatedLearning”.  In:Computational  Science  –  ICCS  2020.Ed.  by  Valeria  V.  Krzhizhanovskaya  et  al.  Cham:Springer International Publishing, 2020, pp. 424–436.ISBN: 978-3-030-50420-5
